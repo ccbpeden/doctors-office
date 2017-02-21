@@ -43,20 +43,58 @@
             $specialty_id = 1;
             $new_doctor = new Doctor($name, $specialty_id);
             $new_doctor->save();
-            echo("new doctor is: ");
-            var_dump($new_doctor);
 
             $name2 = "Dr. Phil Slaughter";
             $specialty_id2 = 2;
             $new_doctor2 = new Doctor($name2, $specialty_id2);
             $new_doctor2->save();
-            echo("new doctor2 is: ");
-            var_dump($new_doctor2);
-
 
             $result = Doctor::getAll();
 
             $this->assertEquals([$new_doctor, $new_doctor2], $result);
+        }
+
+        function test_getPatients()
+        {
+            $name = "Dr. James Novak";
+            $specialty_id = 1;
+            $new_doctor = new Doctor($name, $specialty_id);
+            $new_doctor->save();
+
+            $new_doctor_id = $new_doctor->getId();
+
+            $name = "Bob Smith";
+            $birth_date = "1950-01-01";
+            $doctor_id = $new_doctor_id;
+            $new_patient = new Patient($name, $birth_date, $doctor_id);
+            $new_patient->save();
+
+            $name2 = "Jane Doe";
+            $birth_date2 = "1962-11-11";
+            $doctor_id2 = 2;
+            $new_patient2 = new Patient($name2, $birth_date2, $doctor_id2);
+            $new_patient2->save();
+
+            $result = $new_doctor->getPatients();
+
+            $this->assertEquals([$new_patient], $result);
+        }
+
+        function test_findDoctor()
+        {
+            $name = "Dr. James Novak";
+            $specialty_id = 1;
+            $new_doctor = new Doctor($name, $specialty_id);
+            $new_doctor->save();
+
+            $name2 = "Dr. Phil Slaughter";
+            $specialty_id2 = 2;
+            $new_doctor2 = new Doctor($name2, $specialty_id2);
+            $new_doctor2->save();
+
+            $result = Doctor::findDoctor($new_doctor->getId());
+
+            $this->assertEquals($new_doctor, $result);
         }
     }
 ?>

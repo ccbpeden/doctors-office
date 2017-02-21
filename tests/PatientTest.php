@@ -46,16 +46,12 @@
             $doctor_id = 1;
             $new_patient = new Patient($name, $birth_date, $doctor_id);
             $new_patient->save();
-            echo("new patient is: ");
-            var_dump($new_patient);
 
             $name2 = "Jane Doe";
             $birth_date2 = "1962-11-11";
             $doctor_id2 = 2;
             $new_patient2 = new Patient($name2, $birth_date2, $doctor_id2);
             $new_patient2->save();
-            echo("new patient2 is: ");
-            var_dump($new_patient2);
 
             $result = Patient::getAll();
 

@@ -53,6 +53,34 @@
             $GLOBALS['DB']->exec("DELETE FROM doctors;");
         }
 
+        function getPatients()
+        {
+            $patients = array();
+            $patient_query_string = "SELECT * FROM patients WHERE doctor_id = {$this->getId()};";
+            $returned_patients = $GLOBALS['DB']->query($patient_query_string);
+            foreach($returned_patients as $patient) {
+                $name = $patient['name'];
+                $birth_date = $patient['birth_date'];
+                $doctor_id = $patient['doctor_id'];
+                $id = $patient['id'];
+                $new_patient = new Patient($name, $birth_date, $doctor_id, $id);
+                array_push($patients, $new_patient);
+            }
+            return $patients;
+        }
+
+        static function findDoctor($search_id)
+        {
+            $found_doctor = null;
+            $doctors = Doctor::getAll();
+            foreach($doctors as $doctor) {
+                $found_doctor_id = $doctor->getId();
+                if ($found_doctor_id == $search_id) {
+                    $found_doctor = $doctor;
+                }
+            }
+            return $found_doctor;
+        }
 
 
     }
