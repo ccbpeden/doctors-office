@@ -7,6 +7,7 @@
 
     require_once "src/Doctor.php";
     require_once "src/Patient.php";
+    require_once "src/Specialty.php";
 
     $server = 'mysql:host=localhost:8889;dbname=office_test';
     $username = 'root';
