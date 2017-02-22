@@ -1,0 +1,29 @@
+<html>
+<head>
+    <title>Specialty List</title>
+</head>
+<body>
+    <h1>{{ specialty.getName }}</h1>
+
+    {% if doctors is not empty %}
+        <p>Here are our doctors:</p>
+        <ul>
+            {% for doctor in doctors %}
+                <li>{{ doctor.getName }}</li>
+            {% endfor %}
+        </ul>
+    {% endif %}
+
+    <h4>Add a doctor to this specialty</h4>
+
+    <form action='/doctors' method='post'>
+        <input id="specialty_id" name="specialty_id" type="hidden" value="{{ specialty.getId() }}">
+        <label for='doctor_name'>Doctor's Name</label>
+        <input id='doctor_name' name='doctor_name' type='text'>
+
+        <button type='submit'>Add doctor</button>
+    </form>
+
+    <p><a href='/'>Home</a></p>
+</body>
+</html>
