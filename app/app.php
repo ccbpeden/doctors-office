@@ -38,6 +38,18 @@
         return $app['twig']->render('specialty.html.twig', array('specialty' => $specialty, 'doctors' => $specialty->getDoctors()));
     });
 
+    $app->get("/doctors/{id}", function($id) use ($app) {
+        $search_doctor = Doctor::findDoctor($id);
+        return $app['twig']->render('doctor.html.twig', array('doctor' => $search_doctor, 'patients' => $search_doctor->getPatients()));
+    });
+
+    $app->post("/patients", function() use ($app) {
+        $new_patient = new Patient($_POST['patient_name'], $_POST['birth_date'], $_POST['doctor_id']);
+        $new_patient->save();
+        $doctor = Doctor::findDoctor($_POST['doctor_id']);
+        return $app['twig']->render('doctor.html.twig', array('doctor' => $doctor, 'patients' => $doctor->getPatients()));
+    });
+
 
 
     return $app;

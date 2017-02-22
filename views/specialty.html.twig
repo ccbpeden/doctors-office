@@ -1,6 +1,6 @@
 <html>
 <head>
-    <title>Specialty List</title>
+    <title>Doctor List</title>
 </head>
 <body>
     <h1>{{ specialty.getSpecialtyName }}</h1>
@@ -9,7 +9,7 @@
         <p>Here are our doctors:</p>
         <ul>
             {% for doctor in doctors %}
-                <li>{{ doctor.getName }}</li>
+                <li><a href="/doctors/{{doctor.getId}}">{{ doctor.getName }}</a></li>
             {% endfor %}
         </ul>
     {% endif %}
