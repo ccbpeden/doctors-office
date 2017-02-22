@@ -27,14 +27,14 @@
     });
 
     $app->get("specialties/{id}", function($id) use ($app) {
-        $search_specialty = Specialty::find($id);
+        $search_specialty = Specialty::findSpecialty($id);
         return $app['twig']->render('specialty.html.twig', array('specialty' => $search_specialty, 'doctors' => $search_specialty->getDoctors()));
     });
 
     $app->post("/doctors", function() use ($app){
-        $new_doctor = new Doctor($_POST['doctor_name'], $POST['specialty_id']);
+        $new_doctor = new Doctor($_POST['doctor_name'], $_POST['specialty_id']);
         $new_doctor->save();
-        $specialty = Specialty::find($specialty_id);
+        $specialty = Specialty::findSpecialty($_POST['specialty_id']);
         return $app['twig']->render('specialty.html.twig', array('specialty' => $specialty, 'doctors' => $specialty->getDoctors()));
     });
 
